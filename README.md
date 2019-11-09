@@ -34,7 +34,7 @@ This is typescript enabled node js application
 
 ## curl command to test application
 
-> curl http://localhost:3000/messages -X POST -d \
+> curl http://localhost:3000/api/v1/messages -X POST -d \
 > '{ 
 >  "mail_from": "pavan8sachi@gmail.com", 
 >  "mail_to": [ 
