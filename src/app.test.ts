@@ -1,3 +1,3 @@
-test('should return false given external link', () => {
+test('test', () => {
     expect(1).toBe(1)
   })

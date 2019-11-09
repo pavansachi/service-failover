@@ -16,7 +16,9 @@ export class SendGunHandler extends AbstractMailHandler {
 
     async send(message: Message): Promise<Boolean> {
 
-        let response = await this.restSvc.post({});
+        console.log("call sendgun");
+
+        let response = await this.restSvc.post(message);
 
         if (response == 200) {
             console.log('mail sent by sendgun')
