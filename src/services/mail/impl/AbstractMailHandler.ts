@@ -1,7 +1,6 @@
 import { IRetryService } from "services/retry/IRetryService";
-import { IMailHandler } from "../IMailHandler";
 import { Message } from "models/Message";
-import { IRestService } from "services/rest/IRestService";
+import { IMailHandler } from "../IMailHandler";
 
 /*
 abstract handler to manage the failover

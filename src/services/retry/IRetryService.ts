@@ -1,4 +1,4 @@
-import { IMailHandler } from "../mail/IMailHandler";
+import { IMailHandler } from "services/mail/IMailHandler";
 
 export interface IRetryService {
 

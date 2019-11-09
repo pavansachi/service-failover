@@ -1,6 +1,5 @@
 import { Message } from "models/Message";
-import { FormDataRestService } from "../../rest/impl/FormDataRestService";
-import { IRestService } from "../../rest/IRestService";
+import { IRestService } from "services/rest/IRestService";
 import { AbstractMailHandler } from "./AbstractMailHandler";
 
 /*

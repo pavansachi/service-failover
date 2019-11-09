@@ -1,7 +1,5 @@
 import { IMailHandler } from "./IMailHandler";
 import { Message } from "models/Message";
-import { MailGunHandler } from "./impl/MailGunHandler";
-import { SendGunHandler } from "./impl/SendGunHandler";
 
 /*
 mail send helper

@@ -1,6 +1,5 @@
 import { Message } from "models/Message";
 import { IRetryService } from "services/retry/IRetryService";
-import { IRestService } from "services/rest/IRestService";
 
 /*
 interface for mail handler

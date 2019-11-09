@@ -44,6 +44,7 @@ export class FormDataRestService implements IRestService {
            
         } catch (e) {
 
+            console.log(e);
             console.log(e.response.status)
             console.log(e.response.statusText)
             console.log(e.response.data);

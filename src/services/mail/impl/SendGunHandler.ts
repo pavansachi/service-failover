@@ -1,7 +1,6 @@
-import { Message } from "../../../models/Message";
-import { IRestService } from "../../rest/IRestService";
-import { MockRestService } from "../../rest/impl/MockRestService";
 import { AbstractMailHandler } from "./AbstractMailHandler";
+import { IRestService } from "services/rest/IRestService";
+import { Message } from "models/Message";
 
 /*
 concrete handler
