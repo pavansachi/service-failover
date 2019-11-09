@@ -1,6 +1,6 @@
 # Project
 
-this is typescript enabled node js application
+This is typescript enabled node js application
 
 ## Libraries
 
