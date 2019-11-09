@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
-import messages from "./routes/messages";
+import messages from "./api/v1/routes/messages";
 
 require('dotenv').config()
 
