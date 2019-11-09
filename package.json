@@ -1,0 +1,31 @@
+{
+  "name": "service-failover",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node dist/app.js",
+    "build": "tsc -p .",
+    "dev": "nodemon src/app.ts",
+    "prod": "npm run build && node dist/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.6",
+    "axios": "^0.19.0",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.4",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "@types/jest": "^24.0.22",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "ts-jest": "^24.1.0"
+  }
+}
