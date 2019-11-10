@@ -22,14 +22,14 @@ export class MailGunHandler extends AbstractMailHandler {
 
         const message: MailGunMessage = new MailGunMessage(request.data);
 
-        const response = await this.restSvc.post(message);
+        const response = await this.restSvc.post(message, "form");
 
         if (response === 200) {
             this.log.info("mail sent by mailgun");
             return true;
         }
 
-        this.log.info("send mail failed by mailgun");
+        this.log.error("send mail failed by mailgun");
         return this.next(request);
     }
 }

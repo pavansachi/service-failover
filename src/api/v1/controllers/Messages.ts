@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import { FormDataRestService } from "../services/rest/impl/FormDataRestService";
+import { RestDataService } from "../services/rest/impl/RestDataService";
 import { MailGunHandler } from "../services/mail/impl/MailGunHandler";
 import { MailRequest } from "../models/MailRequest";
 import { MailSender } from "../services/mail/MailSender";
@@ -12,9 +12,11 @@ const router = express.Router();
 
 dotenv.config();
 
-const mailAPI = process.env.MAILGUN_API;
-const mailGunHandler = new MailGunHandler(new FormDataRestService(`${mailAPI}/messages`));
-const sendGridHandler = new SendGridHandler(new MockRestService(200));
+const mailGunAPI = process.env.MAILGUN_API;
+const mailSendGridAPI = process.env.MAILGUN_API;
+
+const mailGunHandler = new MailGunHandler(new RestDataService(`${mailGunAPI}/messages`));
+const sendGridHandler = new SendGridHandler(new RestDataService(`${mailSendGridAPI}/send`));
 mailGunHandler.setNext(sendGridHandler);
 
 const mailSender: MailSender = new MailSender(mailGunHandler);

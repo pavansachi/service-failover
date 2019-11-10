@@ -6,5 +6,5 @@ export interface IRestService {
     /*
     post method
     */
-    post(formData: any): Promise<number>;
+    post(data: any, type?: string): Promise<number>;
 }

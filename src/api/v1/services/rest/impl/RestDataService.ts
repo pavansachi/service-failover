@@ -5,7 +5,7 @@ import logger from "../../../utils/Logger";
 /*
 rest service for sending mail
 */
-export class FormDataRestService implements IRestService {
+export class RestDataService implements IRestService {
 
     private url: string = "";
     private log: any;
@@ -26,28 +26,33 @@ export class FormDataRestService implements IRestService {
          }, "");
     }
 
-    public async post(data: any): Promise<number> {
+    public async post(data: any, type: string): Promise<number> {
 
         const username: string = process.env.MAILGUN_USER || "";
         const password: string = process.env.MAILGUN_PASSWORD || "";
 
+        const contentType = (type && type === "form") ? "application/x-www-form-urlencoded" : "application/json";
+        const contentData = (type && type === "form") ? this.formUrlEncoded(data): data;
+        
         try {
         const response: any = await axios.post(
             this.url,
-            this.formUrlEncoded(data),
+            contentData,
             {
                 auth: {
                     password,
                     username,
                 },
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                headers: { "Content-Type": contentType },
             });
 
         this.log.info(response);
 
         } catch (e) {
 
-            this.log.error(e);
+            console.log(e);
+
+            this.log.error("error occured");
             return 500;
         }
 

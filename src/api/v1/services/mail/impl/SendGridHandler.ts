@@ -26,7 +26,7 @@ export class SendGridHandler extends AbstractMailHandler {
             return true;
         }
 
-        this.log.info("send mail failed by sendgrid");
+        this.log.error("send mail failed by sendgrid");
         return this.next(request);
     }
 }
