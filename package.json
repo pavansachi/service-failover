@@ -8,7 +8,7 @@
     "start": "node dist/app.js",
     "build": "tsc -p .",
     "dev": "nodemon src/app.ts",
-    "prod": "npm run build && node dist/app.js",
+    "prod": "node dist/app.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "author": "",

@@ -3,9 +3,7 @@ FROM node:alpine
 COPY . .
 RUN npm install
 
-RUN rm -rf node_modules/
-
-RUN npm install --save
+RUN npm run build
 
 CMD ["npm", "run", "prod"]
 

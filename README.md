@@ -22,10 +22,11 @@ This is typescript enabled node js application
 
 ### run in development
 
->  npm run dev
+> npm run dev
 
-### run and deploy
+### run and deploy in production
 
+> npm run build
 > npm run prod
 
 #### test the application
@@ -45,12 +46,15 @@ This is typescript enabled node js application
 
 ## curl command to test application
 
-> curl http://localhost:3000/api/v1/messages -X POST -d \
+> curl http://localhost:3000/status -v
+
+> curl http://localhost:3000/api/v1/messages -d \
 > '{ 
 >  "mail_from": "pavan8sachi@gmail.com", 
 >  "mail_to": [ 
 >     "pavan8sachi@gmail.com" 
 > ], 
-> "subject": "mailgun test" 
+> "subject": "test subject",
+> "text": "test text" 
 > }' -H "Content-Type: application/json"
 
