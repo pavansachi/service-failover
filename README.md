@@ -32,6 +32,17 @@ This is typescript enabled node js application
 
 > npm test
 
+#### deploy on local using docker
+
+##### deploy if nodejs and npm available
+
+> npm run dev
+
+##### deploy with docker-compose
+
+> docker-compose build
+> docker-compose up
+
 ## curl command to test application
 
 > curl http://localhost:3000/api/v1/messages -X POST -d \
