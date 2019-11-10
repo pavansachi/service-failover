@@ -1,7 +1,7 @@
 import { MailGunHandler } from "./impl/MailGunHandler";
 import { IMailHandler } from "./IMailHandler";
 import { MockRestService } from "../rest/impl/MockRestService";
-import { SendGunHandler } from "./impl/SendGunHandler";
+import { SendGridHandler } from "./impl/SendGridHandler";
 import { MailSender } from "./MailSender";
 // var sinon = require("sinon");
 
@@ -14,9 +14,9 @@ describe('test for send emails and failover', () => {
   test('mail gun - send email success', async () => {
     
     let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(200));
-    let sendGunHandler:IMailHandler = new SendGunHandler(new MockRestService(200));
+    let sendGridHandler:IMailHandler = new SendGridHandler(new MockRestService(200));
 
-    mailGunHandler.setNext(sendGunHandler);
+    mailGunHandler.setNext(sendGridHandler);
 
     let sender: MailSender = new MailSender(mailGunHandler);
 
@@ -36,9 +36,9 @@ describe('test for send emails and failover', () => {
   test('send gun - send email success', async () => {
     
     let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(500));
-    let sendGunHandler:IMailHandler = new SendGunHandler(new MockRestService(200));
+    let sendGridHandler:IMailHandler = new SendGridHandler(new MockRestService(200));
 
-    mailGunHandler.setNext(sendGunHandler);
+    mailGunHandler.setNext(sendGridHandler);
 
     let sender: MailSender = new MailSender(mailGunHandler);
 
@@ -58,9 +58,9 @@ describe('test for send emails and failover', () => {
   test('send email failed after failover', async () => {
     
     let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(500));
-    let sendGunHandler:IMailHandler = new SendGunHandler(new MockRestService(500));
+    let sendGridHandler:IMailHandler = new SendGridHandler(new MockRestService(500));
 
-    mailGunHandler.setNext(sendGunHandler);
+    mailGunHandler.setNext(sendGridHandler);
 
     let sender: MailSender = new MailSender(mailGunHandler);
 

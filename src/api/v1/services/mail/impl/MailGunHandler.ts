@@ -19,8 +19,6 @@ export class MailGunHandler extends AbstractMailHandler {
 
         let message: MailGunMessage = new MailGunMessage(request.data);
 
-        console.log(message);
-
         let response = await this.restSvc.post(message);
 
         if (response == 200) {

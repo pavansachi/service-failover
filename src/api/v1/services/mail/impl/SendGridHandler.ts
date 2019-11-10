@@ -5,7 +5,7 @@ import { MailRequest } from "models/MailRequest";
 /*
 concrete handler
 */
-export class SendGunHandler extends AbstractMailHandler {
+export class SendGridHandler extends AbstractMailHandler {
 
     private restSvc!: IRestService;
     
@@ -16,16 +16,14 @@ export class SendGunHandler extends AbstractMailHandler {
 
     async send(request: MailRequest): Promise<Boolean> {
 
-        console.log("call sendgun");
-
         let response = await this.restSvc.post(request);
 
         if (response == 200) {
-            console.log('mail sent by sendgun')
+            console.log('mail sent by sendrid')
             return true;
         } 
         
-        console.log('send mail failed by sendgun')
+        console.log('send mail failed by sendrid')
         return this.next(request);
     }
 }

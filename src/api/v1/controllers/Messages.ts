@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import { MailGunHandler } from '../services/mail/impl/MailGunHandler';
-import { SendGunHandler } from '../services/mail/impl/SendGunHandler';
+import { SendGridHandler } from '../services/mail/impl/SendGridHandler';
 import { FormDataRestService } from '../services/rest/impl/FormDataRestService';
 import { MockRestService } from '../services/rest/impl/MockRestService';
 import { MailSender } from '../services/mail/MailSender';
@@ -10,8 +10,8 @@ require('dotenv').config()
 
 const mailAPI = process.env.MAILGUN_API;
 let mailGunHandler = new MailGunHandler(new FormDataRestService(`${mailAPI}/messages`));
-let sendGunHandler = new SendGunHandler(new MockRestService(200));
-mailGunHandler.setNext(sendGunHandler);
+let sendGridHandler = new SendGridHandler(new MockRestService(200));
+mailGunHandler.setNext(sendGridHandler);
 
 let mailSender: MailSender = new MailSender(mailGunHandler);
 
