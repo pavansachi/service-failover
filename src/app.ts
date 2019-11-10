@@ -23,4 +23,4 @@ app.get("/status", (req: Request, res: Response, next: NextFunction) => {
 
 app.use("/api/v1/", Messages);
 
-app.listen(3000, () => log.info(`server running at port ${PORT}`));
+app.listen(PORT, () => log.info(`server running at port ${PORT}`));
