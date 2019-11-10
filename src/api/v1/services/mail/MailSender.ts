@@ -6,13 +6,13 @@ mail send helper
 */
 export class MailSender {
 
-    handler!: IMailHandler;
+    private handler!: IMailHandler;
 
     constructor(handler: IMailHandler) {
         this.handler = handler;
     }
 
-    async send(request: MailRequest): Promise<Boolean> {
+    public async send(request: MailRequest): Promise<boolean> {
 
         if (this.handler != null) {
             return await this.handler.send(request);

@@ -1,7 +1,8 @@
-import { IRestService } from "services/rest/IRestService";
 import { AbstractMailHandler } from "./AbstractMailHandler";
-import { MailRequest } from "../../../models/MailRequest";
+import { IRestService } from "services/rest/IRestService";
 import { MailGunMessage } from "../../../models/MailGunMesage";
+import { MailRequest } from "../../../models/MailRequest";
+import logger from "../../../utils/Logger";
 
 /*
 concrete handler
@@ -9,25 +10,26 @@ concrete handler
 export class MailGunHandler extends AbstractMailHandler {
 
     private restSvc!: IRestService;
+    private log: any;
 
     constructor(restSvc: IRestService) {
         super();
         this.restSvc = restSvc;
+        this.log = logger()
     }
-    
-    async send(request: MailRequest): Promise<Boolean> {
 
-        let message: MailGunMessage = new MailGunMessage(request.data);
+    public async send(request: MailRequest): Promise<boolean> {
 
-        let response = await this.restSvc.post(message);
+        const message: MailGunMessage = new MailGunMessage(request.data);
 
-        if (response == 200) {
-            console.log('mail sent by mailgun')
+        const response = await this.restSvc.post(message);
+
+        if (response === 200) {
+            this.log.info("mail sent by mailgun");
             return true;
         }
-        
-        console.log('send mail failed by mailgun')
+
+        this.log.info("send mail failed by mailgun");
         return this.next(request);
     }
-
 }

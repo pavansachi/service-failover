@@ -1,6 +1,7 @@
 import { AbstractMailHandler } from "./AbstractMailHandler";
 import { IRestService } from "services/rest/IRestService";
 import { MailRequest } from "models/MailRequest";
+import logger from "../../../utils/Logger";
 
 /*
 concrete handler
@@ -8,22 +9,24 @@ concrete handler
 export class SendGridHandler extends AbstractMailHandler {
 
     private restSvc!: IRestService;
-    
+    private log: any;
+
     constructor(restSvc: IRestService) {
         super();
         this.restSvc = restSvc;
+        this.log = logger();
     }
 
-    async send(request: MailRequest): Promise<Boolean> {
+    public async send(request: MailRequest): Promise<boolean> {
 
-        let response = await this.restSvc.post(request);
+        const response = await this.restSvc.post(request);
 
-        if (response == 200) {
-            console.log('mail sent by sendrid')
+        if (response === 200) {
+            this.log.info("mail sent by sendgrid");
             return true;
-        } 
-        
-        console.log('send mail failed by sendrid')
+        }
+
+        this.log.info("send mail failed by sendgrid");
         return this.next(request);
     }
 }

@@ -1,8 +1,8 @@
 export class MailRequest {
 
-    data: any;
+    public data: any;
 
     constructor(data: any) {
-        this.data = data
+        this.data = data;
     }
 }

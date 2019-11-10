@@ -5,76 +5,76 @@ import { SendGridHandler } from "./impl/SendGridHandler";
 import { MailSender } from "./MailSender";
 // var sinon = require("sinon");
 
-describe('test for send emails and failover', () => {
+describe("test for send emails and failover", () => {
 
   beforeEach(async () => {
-    jest.setTimeout(10000)
-  })
+    jest.setTimeout(10000);
+  });
 
-  test('mail gun - send email success', async () => {
-    
-    let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(200));
-    let sendGridHandler:IMailHandler = new SendGridHandler(new MockRestService(200));
+  test("mail gun - send email success", async () => {
+
+    const mailGunHandler: IMailHandler = new MailGunHandler(new MockRestService(200));
+    const sendGridHandler: IMailHandler = new SendGridHandler(new MockRestService(200));
 
     mailGunHandler.setNext(sendGridHandler);
 
-    let sender: MailSender = new MailSender(mailGunHandler);
+    const sender: MailSender = new MailSender(mailGunHandler);
 
-    const result:Boolean = await sender.send({
+    const result: boolean = await sender.send({
       data: {
         from: "xxx@gmail.com",
         to: [
-          "xxx@gmail.com"
-        ]
-      }
+          "xxx@gmail.com",
+        ],
+      },
     });
 
     expect(result).toBe(true);
 
-  })
+  });
 
-  test('send gun - send email success', async () => {
-    
-    let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(500));
-    let sendGridHandler:IMailHandler = new SendGridHandler(new MockRestService(200));
+  test("send gun - send email success", async () => {
+
+    const mailGunHandler: IMailHandler = new MailGunHandler(new MockRestService(500));
+    const sendGridHandler: IMailHandler = new SendGridHandler(new MockRestService(200));
 
     mailGunHandler.setNext(sendGridHandler);
 
-    let sender: MailSender = new MailSender(mailGunHandler);
+    const sender: MailSender = new MailSender(mailGunHandler);
 
-    const result:Boolean = await sender.send({
+    const result: boolean = await sender.send({
       data: {
         from: "xxx@gmail.com",
         to: [
-          "xxx@gmail.com"
-        ]
-      }
+          "xxx@gmail.com",
+        ],
+      },
     });
 
     expect(result).toBe(true);
 
-  })
+  });
 
-  test('send email failed after failover', async () => {
-    
-    let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(500));
-    let sendGridHandler:IMailHandler = new SendGridHandler(new MockRestService(500));
+  test("send email failed after failover", async () => {
+
+    const mailGunHandler: IMailHandler = new MailGunHandler(new MockRestService(500));
+    const sendGridHandler: IMailHandler = new SendGridHandler(new MockRestService(500));
 
     mailGunHandler.setNext(sendGridHandler);
 
-    let sender: MailSender = new MailSender(mailGunHandler);
+    const sender: MailSender = new MailSender(mailGunHandler);
 
-    const result:Boolean = await sender.send({
+    const result: boolean = await sender.send({
       data: {
         from: "xxx@gmail.com",
         to: [
-          "xxx@gmail.com"
-        ]
-      }
+          "xxx@gmail.com",
+        ],
+      },
     });
 
     expect(result).toBe(false);
 
-  })
+  });
 
-})
+});

@@ -1,54 +1,54 @@
-import { IRestService } from "../IRestService";
 import axios from "axios";
+import { IRestService } from "../IRestService";
+import logger from "../../../utils/Logger";
 
 /*
 rest service for sending mail
 */
 export class FormDataRestService implements IRestService {
-    
-    url: string = '';
+
+    private url: string = "";
+    private log: any;
 
     constructor(url: string) {
-        this.url = url
+        this.url = url;
+        this.log = logger();
     }
-    
-    formUrlEncoded(x: any) {
 
-        return Object.keys(x).reduce((p, c) => { 
-            let value = x[c];
+    public formUrlEncoded(x: any) {
+
+        return Object.keys(x).reduce((p, c) => {
+            const value = x[c];
             if (value) {
                 return p + `&${c}=${encodeURIComponent(x[c])}`;
             }
             return p;
-         }, '')
+         }, "");
     }
 
-    async post(data: any): Promise<Number> {
-        
-        let username: string = process.env.MAILGUN_USER || '';
-        let password: string = process.env.MAILGUN_PASSWORD || '';
+    public async post(data: any): Promise<number> {
 
-        console.log(this.formUrlEncoded(data));
+        const username: string = process.env.MAILGUN_USER || "";
+        const password: string = process.env.MAILGUN_PASSWORD || "";
 
         try {
-        let response: any = await axios.post(
+        const response: any = await axios.post(
             this.url,
             this.formUrlEncoded(data),
             {
                 auth: {
-                    username: username,
-                    password: password
+                    password,
+                    username,
                 },
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
             });
-           
+
+        this.log.info(response);
+
         } catch (e) {
 
-            console.log(e);
-            console.log(e.response.status)
-            console.log(e.response.statusText)
-            console.log(e.response.data);
-            return 500
+            this.log.error(e);
+            return 500;
         }
 
         return 200;
