@@ -8,38 +8,53 @@ import { MailSender } from "./MailSender";
 
 describe('test for send emails and failover', () => {
 
-beforeEach(async () => {
-  jest.setTimeout(10000)
-})
+  beforeEach(async () => {
+    jest.setTimeout(10000)
+  })
 
-test('mail gun - send email success', async () => {
-  
-  let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(200));
-  let sendGunHandler:IMailHandler = new SendGunHandler(new MockRestService(200));
+  test('mail gun - send email success', async () => {
+    
+    let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(200));
+    let sendGunHandler:IMailHandler = new SendGunHandler(new MockRestService(200));
 
-  mailGunHandler.setNext(sendGunHandler);
+    mailGunHandler.setNext(sendGunHandler);
 
-  let sender: MailSender = new MailSender(mailGunHandler);
+    let sender: MailSender = new MailSender(mailGunHandler);
 
-  const result:Boolean = await sender.send(new Message('xxx@gmail.com', 'xxx@gmail.com'));
+    const result:Boolean = await sender.send(new Message('xxx@gmail.com', 'xxx@gmail.com'));
 
-  expect(result).toBe(true);
+    expect(result).toBe(true);
 
-})
+  })
 
-test('send gun - send email success', async () => {
-  
-  let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(500));
-  let sendGunHandler:IMailHandler = new SendGunHandler(new MockRestService(200));
+  test('send gun - send email success', async () => {
+    
+    let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(500));
+    let sendGunHandler:IMailHandler = new SendGunHandler(new MockRestService(200));
 
-  mailGunHandler.setNext(sendGunHandler);
+    mailGunHandler.setNext(sendGunHandler);
 
-  let sender: MailSender = new MailSender(mailGunHandler);
+    let sender: MailSender = new MailSender(mailGunHandler);
 
-  const result:Boolean = await sender.send(new Message('xxx@gmail.com', 'xxx@gmail.com'));
+    const result:Boolean = await sender.send(new Message('xxx@gmail.com', 'xxx@gmail.com'));
 
-  expect(result).toBe(true);
+    expect(result).toBe(true);
 
-})
+  })
+
+  test('send email failed after failover', async () => {
+    
+    let mailGunHandler:IMailHandler = new MailGunHandler(new MockRestService(500));
+    let sendGunHandler:IMailHandler = new SendGunHandler(new MockRestService(500));
+
+    mailGunHandler.setNext(sendGunHandler);
+
+    let sender: MailSender = new MailSender(mailGunHandler);
+
+    const result:Boolean = await sender.send(new Message('xxx@gmail.com', 'xxx@gmail.com'));
+
+    expect(result).toBe(false);
+
+  })
 
 })
