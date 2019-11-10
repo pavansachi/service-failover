@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
-import messages from "./api/v1/routes/messages";
+import Messages from "./api/v1/controllers/Messages";
 
 require('dotenv').config()
 
@@ -14,6 +14,6 @@ app.get('/status', (req: Request, res: Response, next: NextFunction) => {
     res.send('OK')
 })
 
-app.use('/api/v1/', messages);
+app.use('/api/v1/', Messages);
 
 app.listen(3000, () => console.log(`server running at port ${PORT}`))

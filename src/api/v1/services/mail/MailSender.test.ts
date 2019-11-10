@@ -1,7 +1,6 @@
 import { MailGunHandler } from "./impl/MailGunHandler";
 import { IMailHandler } from "./IMailHandler";
 import { MockRestService } from "../rest/impl/MockRestService";
-import { Message } from "../../models/Message";
 import { SendGunHandler } from "./impl/SendGunHandler";
 import { MailSender } from "./MailSender";
 // var sinon = require("sinon");
@@ -21,7 +20,14 @@ describe('test for send emails and failover', () => {
 
     let sender: MailSender = new MailSender(mailGunHandler);
 
-    const result:Boolean = await sender.send(new Message('xxx@gmail.com', 'xxx@gmail.com'));
+    const result:Boolean = await sender.send({
+      data: {
+        from: "xxx@gmail.com",
+        to: [
+          "xxx@gmail.com"
+        ]
+      }
+    });
 
     expect(result).toBe(true);
 
@@ -36,7 +42,14 @@ describe('test for send emails and failover', () => {
 
     let sender: MailSender = new MailSender(mailGunHandler);
 
-    const result:Boolean = await sender.send(new Message('xxx@gmail.com', 'xxx@gmail.com'));
+    const result:Boolean = await sender.send({
+      data: {
+        from: "xxx@gmail.com",
+        to: [
+          "xxx@gmail.com"
+        ]
+      }
+    });
 
     expect(result).toBe(true);
 
@@ -51,7 +64,14 @@ describe('test for send emails and failover', () => {
 
     let sender: MailSender = new MailSender(mailGunHandler);
 
-    const result:Boolean = await sender.send(new Message('xxx@gmail.com', 'xxx@gmail.com'));
+    const result:Boolean = await sender.send({
+      data: {
+        from: "xxx@gmail.com",
+        to: [
+          "xxx@gmail.com"
+        ]
+      }
+    });
 
     expect(result).toBe(false);
 

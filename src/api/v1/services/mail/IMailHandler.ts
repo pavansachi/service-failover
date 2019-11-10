@@ -1,5 +1,5 @@
-import { Message } from "models/Message";
 import { IRetryService } from "services/retry/IRetryService";
+import { MailRequest } from "models/MailRequest";
 
 /*
 interface for mail handler
@@ -16,5 +16,5 @@ export interface IMailHandler {
     /*
     send message
     */
-    send(message: Message): Promise<Boolean>;
+    send(request: MailRequest): Promise<Boolean>;
 }

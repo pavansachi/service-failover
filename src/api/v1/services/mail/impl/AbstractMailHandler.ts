@@ -1,6 +1,6 @@
 import { IRetryService } from "services/retry/IRetryService";
-import { Message } from "models/Message";
 import { IMailHandler } from "../IMailHandler";
+import { MailRequest } from "models/MailRequest";
 
 /*
 abstract handler to manage the failover
@@ -17,12 +17,12 @@ export abstract class AbstractMailHandler implements IMailHandler {
         this.handler = handler;
     }   
     
-    abstract send(message: Message): Promise<Boolean>;
+    abstract send(request: MailRequest): Promise<Boolean>;
 
-    async next(message: Message): Promise<Boolean> {
+    async next(request: MailRequest): Promise<Boolean> {
 
         if (this.handler != null) {
-            return this.handler.send(message);
+            return this.handler.send(request);
         }
 
         return false;

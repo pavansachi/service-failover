@@ -1,5 +1,5 @@
 import { IMailHandler } from "./IMailHandler";
-import { Message } from "models/Message";
+import { MailRequest } from "models/MailRequest";
 
 /*
 mail send helper
@@ -12,10 +12,10 @@ export class MailSender {
         this.handler = handler;
     }
 
-    async send(message:Message): Promise<Boolean> {
+    async send(request: MailRequest): Promise<Boolean> {
 
         if (this.handler != null) {
-            return await this.handler.send(message);
+            return await this.handler.send(request);
         }
 
         return false;

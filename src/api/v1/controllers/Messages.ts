@@ -1,10 +1,10 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
-import { Message } from '../models/Message';
 import { MailGunHandler } from '../services/mail/impl/MailGunHandler';
 import { SendGunHandler } from '../services/mail/impl/SendGunHandler';
 import { FormDataRestService } from '../services/rest/impl/FormDataRestService';
 import { MockRestService } from '../services/rest/impl/MockRestService';
 import { MailSender } from '../services/mail/MailSender';
+import { MailRequest } from '../models/MailRequest';
 let router = express.Router()
 require('dotenv').config()
 
@@ -38,21 +38,9 @@ router.post('/messages', validate, async(req: Request, res: Response, next: Next
   try {
       let body = req.body;
 
-      let from_address = body.mail_from;
-      let to_address: string = body.mail_to.join(',');
+      let request:MailRequest = new MailRequest(body);
 
-      let message: Message = new Message(from_address,
-          to_address);
-
-      if (body.mail_cc) {
-          message.mail_cc_list = body.mail_cc.join(',');
-      }
-
-      if (body.mail_bcc) {
-          message.mail_bcc_list = body.mail_bcc.join(',');
-      }
-
-      let result: Boolean = await mailSender.send(message);
+      let result: Boolean = await mailSender.send(request);
 
       if (result) {
           res.status(202).send("mail has been successfully sent")

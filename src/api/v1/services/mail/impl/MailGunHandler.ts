@@ -1,6 +1,7 @@
-import { Message } from "models/Message";
 import { IRestService } from "services/rest/IRestService";
 import { AbstractMailHandler } from "./AbstractMailHandler";
+import { MailRequest } from "../../../models/MailRequest";
+import { MailGunMessage } from "../../../models/MailGunMesage";
 
 /*
 concrete handler
@@ -14,7 +15,11 @@ export class MailGunHandler extends AbstractMailHandler {
         this.restSvc = restSvc;
     }
     
-    async send(message: Message): Promise<Boolean> {
+    async send(request: MailRequest): Promise<Boolean> {
+
+        let message: MailGunMessage = new MailGunMessage(request.data);
+
+        console.log(message);
 
         let response = await this.restSvc.post(message);
 
@@ -24,7 +29,7 @@ export class MailGunHandler extends AbstractMailHandler {
         }
         
         console.log('send mail failed by mailgun')
-        return this.next(message);
+        return this.next(request);
     }
 
 }
