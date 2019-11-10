@@ -10,23 +10,23 @@ export class SendGridMessage {
 
         this.personalizations = [];
 
-        const emails = request.to.map((e: any) => ( {"email": e} ));
+        const emails = request.mail_to.map((e: any) => ( {"email": e} ));
 
         const to = {
             "to": emails
         }
 
         const from = {
-            "from": request.from
+            "from": { "email": request.mail_from }
         }
 
-        const subject = request.subject;
+        const subject = { "subject": request.subject };
 
         const content = {
             "content": [
                 {
                     "type": "text/plain",
-                    "value": request.test
+                    "value": request.text
                 }
             ]
         }

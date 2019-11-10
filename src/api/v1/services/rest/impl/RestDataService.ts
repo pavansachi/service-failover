@@ -26,12 +26,11 @@ export class RestDataService implements IRestService {
          }, "");
     }
 
-    public async post(data: any, type: string): Promise<number> {
+    public async post(data: any, headers: any, type: string): Promise<number> {
 
         const username: string = process.env.MAILGUN_USER || "";
         const password: string = process.env.MAILGUN_PASSWORD || "";
 
-        const contentType = (type && type === "form") ? "application/x-www-form-urlencoded" : "application/json";
         const contentData = (type && type === "form") ? this.formUrlEncoded(data): data;
         
         try {
@@ -43,14 +42,12 @@ export class RestDataService implements IRestService {
                     password,
                     username,
                 },
-                headers: { "Content-Type": contentType },
+                headers: headers
             });
 
-        this.log.info(response);
+        this.log.debug(response)
 
         } catch (e) {
-
-            console.log(e);
 
             this.log.error("error occured");
             return 500;

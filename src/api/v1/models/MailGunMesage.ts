@@ -13,10 +13,10 @@ export class MailGunMessage {
 
     constructor(request: any) {
         this.subject = request.subject || this.subject;
-        this.to = (request.to) ? request.to.join(",") : "";
-        this.from = request.from;
-        this.cc = (request.cc) ? request.cc.join(",") : "";
-        this.bcc = (request.bcc) ? request.bcc.join(",") : "";
+        this.to = (request.mail_to) ? request.mail_to.join(",") : "";
+        this.from = request.mail_from;
+        this.cc = (request.mail_cccc) ? request.mail_cc.join(",") : "";
+        this.bcc = (request.mail_bcc) ? request.mail_bcc.join(",") : "";
         this.text = request.text || this.text;
     }
 

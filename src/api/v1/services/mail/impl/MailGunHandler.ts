@@ -22,7 +22,9 @@ export class MailGunHandler extends AbstractMailHandler {
 
         const message: MailGunMessage = new MailGunMessage(request.data);
 
-        const response = await this.restSvc.post(message, "form");
+        this.log.info(JSON.stringify(message));
+
+        const response = await this.restSvc.post(message, { "Content-Type": "application/x-www-form-urlencoded" }, "form");
 
         if (response === 200) {
             this.log.info("mail sent by mailgun");

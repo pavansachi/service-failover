@@ -13,7 +13,7 @@ const router = express.Router();
 dotenv.config();
 
 const mailGunAPI = process.env.MAILGUN_API;
-const mailSendGridAPI = process.env.MAILGUN_API;
+const mailSendGridAPI = process.env.SENDGRID_API;
 
 const mailGunHandler = new MailGunHandler(new RestDataService(`${mailGunAPI}/messages`));
 const sendGridHandler = new SendGridHandler(new RestDataService(`${mailSendGridAPI}/send`));
