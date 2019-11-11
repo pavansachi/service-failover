@@ -14,6 +14,11 @@ This is typescript enabled node js application
 * Mail Gun, email provider API
 * Send Gun, email provider API
 
+## Swagger documentation
+
+>  http://mail.digiconnect.co/api/v1/docs/ (Prod)
+   http://localhost:3000/api/v1/docs/ (Local)
+
 ## Usage
 
 ### Build the application
@@ -85,7 +90,7 @@ Pre-requisites
 
 
 
-#### Remote
+#### Production
 
 
 deployed the API at mail.digiconnect.co in AWS cloud
