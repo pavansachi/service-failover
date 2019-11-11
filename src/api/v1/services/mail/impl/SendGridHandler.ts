@@ -22,12 +22,18 @@ export class SendGridHandler extends AbstractMailHandler {
 
         const message: SendGridMessage = new SendGridMessage(request.data);
 
-        this.log.info(JSON.stringify(message));
+        const data = message.Data;
+
+        this.log.info(JSON.stringify(data));
 
         const sendGridKey = process.env.SENDGRID_API_KEY;
 
-        const response = await this.restSvc.post(message, { "Content-Type": "application/json",
-        "Authorization": `Bearer ${sendGridKey}` });
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${sendGridKey}`
+        };
+
+        const response = await this.restSvc.post(data, headers);
 
         if (response === 200) {
             this.log.info("mail sent by sendgrid");

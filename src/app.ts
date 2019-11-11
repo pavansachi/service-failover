@@ -8,6 +8,7 @@ import Logger from "./api/v1/utils/Logger";
 dotenv.config();
 
 const app: Application = express();
+module.exports = app;
 
 const PORT = process.env.PORT || 3000;
 

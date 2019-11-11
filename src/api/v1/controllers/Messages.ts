@@ -15,13 +15,19 @@ dotenv.config();
 const mailGunAPI = process.env.MAILGUN_API;
 const mailSendGridAPI = process.env.SENDGRID_API;
 
-const mailGunHandler = new MailGunHandler(new RestDataService(`${mailGunAPI}/messages`));
-const sendGridHandler = new SendGridHandler(new RestDataService(`${mailSendGridAPI}/send`));
+const mailGunHandler = new MailGunHandler(new RestDataService(`${mailGunAPI}`));
+const sendGridHandler = new SendGridHandler(new RestDataService(`${mailSendGridAPI}`));
 mailGunHandler.setNext(sendGridHandler);
 
 const mailSender: MailSender = new MailSender(mailGunHandler);
 
 const log = logger();
+
+function sendError(e: string): any {
+    return {
+        message: e
+    }
+}
 
 function validate(req: Request, res: Response, next: NextFunction) {
 
@@ -30,12 +36,12 @@ function validate(req: Request, res: Response, next: NextFunction) {
 
     if (!fromAddress) {
         log.error("mail_from is required");
-        return res.sendStatus(400);
+        return res.status(400).send(sendError("mail_from is required parameter"));
     }
 
     if (toAddress.length === 0) {
         log.error("mail_to is required");
-        return res.sendStatus(400);
+        return res.status(400).send(sendError("mail_to is required parameter"));
     }
 
     next();
@@ -52,9 +58,12 @@ router.post("/messages", validate, async ( req: Request, res: Response, next: Ne
       if (result) {
           res.status(202).send("mail has been successfully sent");
       }
+      else {
+        res.status(500).send("mail has not been sent");
+      }
   } catch (e) {
     log.error("unexpected error happened", e);
-      res.status(500);
+    res.status(500).send("mail has not been sent");
   }
 
 });

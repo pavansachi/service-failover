@@ -1,10 +1,16 @@
+
 /*
 interface for rest service
 */
 export interface IRestService {
 
     /*
-    post method
+        post
     */
-    post(data: any, headers: any, type?: string): Promise<number>;
+    post(data: any, headers: any): Promise<number>;
+
+    /*
+    post with authentication
+    */
+    postWithAuth(auth: {username: string, password: string}, data: any, headers: any): Promise<number>;
 }

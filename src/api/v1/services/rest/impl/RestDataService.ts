@@ -15,41 +15,59 @@ export class RestDataService implements IRestService {
         this.log = logger();
     }
 
-    public formUrlEncoded(x: any) {
-
-        return Object.keys(x).reduce((p, c) => {
-            const value = x[c];
-            if (value) {
-                return p + `&${c}=${encodeURIComponent(x[c])}`;
-            }
-            return p;
-         }, "");
-    }
-
-    public async post(data: any, headers: any, type: string): Promise<number> {
-
-        const username: string = process.env.MAILGUN_USER || "";
-        const password: string = process.env.MAILGUN_PASSWORD || "";
-
-        const contentData = (type && type === "form") ? this.formUrlEncoded(data): data;
+    public async post(data: any, headers: any): Promise<number> {
         
         try {
-        const response: any = await axios.post(
-            this.url,
-            contentData,
-            {
-                auth: {
-                    password,
-                    username,
-                },
-                headers: headers
-            });
+            const response: any = await axios.post(
+                this.url,
+                data,
+                {
+                    headers: headers
+                });
 
-        this.log.debug(response)
+            this.log.info({
+                status: response.status,
+                text: response.statusText,
+                headers: response.headers
+            })
 
         } catch (e) {
 
-            this.log.error("error occured");
+            this.log.error({
+                status: e.response.status,
+                statusText: e.response.statusText,
+                headers: e.response.headers
+            });
+            return 500;
+        }
+
+        return 200;
+    }
+
+    public async postWithAuth(auth: {username: string, password: string}, data: any, headers: any): Promise<number> {
+        
+        try {
+            const response: any = await axios.post(
+                this.url,
+                data,
+                {
+                    auth,
+                    headers: headers
+                });
+
+            this.log.info({
+                status: response.status,
+                text: response.statusText,
+                headers: response.headers
+            });
+
+        } catch (e) {
+
+            this.log.error({
+                status: e.response.status,
+                statusText: e.response.statusText,
+                headers: e.response.headers
+            });
             return 500;
         }
 

@@ -8,12 +8,20 @@ export class MockRestService implements IRestService {
         this.result = result;
     }
 
-    public post(formData: any): Promise<number> {
+    public post(data: any, headers: any): Promise<number> {
 
         return new Promise( (resolve, reject) => {
             setTimeout( () => {
                 resolve(this.result);
-            }, 3000);
+            }, 1000);
+        });
+    }
+
+    postWithAuth(auth: { username: string; password: string; }, data: any, headers: any): Promise<number> {
+        return new Promise( (resolve, reject) => {
+            setTimeout( () => {
+                resolve(this.result);
+            }, 1000);
         });
     }
 }
