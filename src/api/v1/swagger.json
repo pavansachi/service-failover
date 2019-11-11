@@ -1,0 +1,67 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "this is a email send API with failover capabilities",
+    "version": "1.0.0",
+    "title": "service-failover-api",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "pavan8sachi@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "mail.digiconnect.co",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "email",
+      "description": "send email"
+    },
+    {
+      "name": "provider",
+      "description": "send emails via providers"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "tags": [
+          "send",
+          "email"
+        ],
+        "summary": "check health of application",
+        "operationId": "status",
+        "produces": [
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "text"
+            }
+          },
+          "500": {
+            "description": "unhealthy"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+   
+  },
+  "definitions": {
+
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
