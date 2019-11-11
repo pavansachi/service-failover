@@ -22,8 +22,8 @@ describe("test for send emails and failover", () => {
 
     const result: boolean = await sender.send({
       data: {
-        from: "xxx@gmail.com",
-        to: [
+        mail_from: "xxx@gmail.com",
+        mail_to: [
           "xxx@gmail.com",
         ],
       },
@@ -44,8 +44,8 @@ describe("test for send emails and failover", () => {
 
     const result: boolean = await sender.send({
       data: {
-        from: "xxx@gmail.com",
-        to: [
+        mail_from: "xxx@gmail.com",
+        mail_to: [
           "xxx@gmail.com",
         ],
       },
@@ -66,8 +66,8 @@ describe("test for send emails and failover", () => {
 
     const result: boolean = await sender.send({
       data: {
-        from: "xxx@gmail.com",
-        to: [
+        mail_from: "xxx@gmail.com",
+        mail_to: [
           "xxx@gmail.com",
         ],
       },

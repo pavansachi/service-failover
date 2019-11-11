@@ -1,5 +1,50 @@
+var should = require('should');
+var request = require('supertest');
+var server = require('./app');
 
-test("mail gun - send email success", async () => {
+describe('controllers', function() {
 
-  expect(200).toBe(200);
+  beforeEach(async () => {
+    jest.setTimeout(10000);
+  });
+
+  describe('GET /status', function() {
+
+    test('should return status healthy', function(done) {
+
+      request(server)
+        .get('/status')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err: any, res: any) {
+
+          res.text.should.eql('OK');
+          done();
+        });
+      });
+    });
+
+    describe('GET /api/v1/messages', function() {
+
+      test('should validate for mandatory params', function(done) {
+
+        setTimeout(() => {
+          done();
+        }, 10000);
+
+        request(server)
+          .post('/api/v1/messages')
+          .send({
+            "mail_from": "xxx@gmail.com",
+            "mail_to": ["xxx@gmail.com"]
+          })
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(500)
+          .end(function(err: any, res: any) {
+            done();
+          });
+        });
+      });
 });
