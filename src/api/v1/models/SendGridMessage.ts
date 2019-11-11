@@ -4,37 +4,47 @@ mail gun mesasge model
 */
 export class SendGridMessage {
 
-    private personalizations: any;
+    private data: any;
 
     constructor(request: any) {
 
-        this.personalizations = [];
+        this.data = {};
 
-        const emails = request.mail_to.map((e: any) => ( {"email": e} ));
+        if (request.mail_to) {
 
-        const to = {
-            "to": emails
+            const personalizations = [];
+            const emails = request.mail_to.map((e: any) => ( {"email": e} ));
+            const to = {
+                "to": emails
+            }
+            personalizations.push(to);
+            this.data.personalizations = personalizations;
         }
 
-        const from = {
-            "from": { "email": request.mail_from }
+        if (request.mail_from) {
+            const from = { "email": request.mail_from }
+            this.data.from = from;
         }
 
-        const subject = { "subject": request.subject };
-
-        const content = {
-            "content": [
-                {
-                    "type": "text/plain",
-                    "value": request.text
-                }
-            ]
+        if (request.subject) {
+            const subject = request.subject;
+            this.data.subject = subject;
         }
 
-        this.personalizations.push(to);
-        this.personalizations.push(from);
-        this.personalizations.push(subject);
-        this.personalizations.push(content);
+        if (request.text) {
+            const content = [
+                    {
+                        "type": "text/plain",
+                        "value": request.text
+                    }
+                ]
+            
+            this.data.content = content;
+        }
+    }
+
+    get Data(): any {
+        return this.data;
     }
 }
 

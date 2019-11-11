@@ -4,67 +4,86 @@ mail gun mesasge model
 */
 export class MailGunMessage {
 
-    private subject: string = "TEST SUBJECT";
-    private text: string = "TEST MESSAGE BODY";
-    private from: string = "";
-    private to: string = "";
-    private cc: string = "";
-    private bcc: string = "";
+    private data: any;
 
     constructor(request: any) {
-        this.subject = request.subject || this.subject;
-        this.to = (request.mail_to) ? request.mail_to.join(",") : "";
-        this.from = request.mail_from;
-        this.cc = (request.mail_cccc) ? request.mail_cc.join(",") : "";
-        this.bcc = (request.mail_bcc) ? request.mail_bcc.join(",") : "";
-        this.text = request.text || this.text;
+
+        this.data = {};
+
+        if (request.subject) {
+            this.data.subject = request.subject || "TEST SUBJECT";
+        }
+
+        if (request.mail_to && request.mail_to.length > 0) {
+            this.data.to = request.mail_to.join(",");
+        }
+
+        if (request.mail_from) {
+            this.data.from = request.mail_from;
+        }
+
+        if (request.mail_cc && request.mail_cc.length > 0) {
+            this.data.cc = request.mail_cc.join(",");
+        }
+
+        if (request.mail_bcc && request.mail_bcc.length > 0) {
+            this.data.bcc = request.mail_bcc.join(",");
+        }
+
+        if (request.text) {
+            this.data.text = request.text;
+        }
+    }
+
+    get Data(): any {
+        return this.data;
     }
 
     set Subject(v: string) {
-        this.subject = v;
+        this.data.subject = v;
     }
 
     get Subject(): string {
-        return this.subject;
+        return this.data.subject;
     }
 
     set From(v: string) {
-        this.from = v;
+        this.data.from = v;
     }
 
     get From(): string {
-        return this.from;
+        return this.data.from;
     }
 
     set Text(v: string) {
-        this.text = v;
+        this.data.text = v;
     }
 
     get Text(): string {
-        return this.text;
+        return this.data.text;
     }
 
     set To(v: string) {
-        this.to = v;
+        this.data.to = v;
     }
 
     get To(): string {
-        return this.to;
+        return this.data.to;
     }
 
     set CC(v: string) {
-        this.cc = v;
+        this.data.cc = v;
     }
 
     get CC(): string {
-        return this.cc;
+        return this.data.cc;
     }
 
     set BCC(v: string) {
-        this.bcc = v;
+        this.data.bcc = v;
     }
 
     get BCC(): string {
-        return this.bcc;
+        return this.data.bcc;
     }
 }
