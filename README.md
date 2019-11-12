@@ -2,6 +2,12 @@
 
 This is typescript enabled node js application
 
+1. [ Libraries ](#Libraries)
+2. [ Swagger Documentation ](#Swagger-documentation)
+3. [ Usage ](#usage)
+4. [ Test ](#Test)
+5. [ Deploy ](#Deploy)
+
 ## Libraries
 
 * Node JS, javascript execution environment
@@ -16,7 +22,7 @@ This is typescript enabled node js application
 
 ## Swagger documentation
 
->  http://mail.digiconnect.co/api/v1/docs/ (Prod)
+>  http://mail.digiconnect.co/api/v1/docs/ (Prod)  
    http://localhost:3000/api/v1/docs/ (Local)
 
 ## Usage
@@ -80,8 +86,8 @@ Pre-requisites
 
 > curl http://localhost:3000/status -v  
 
->  curl http://localhost:3000/api/v1/messages -d \
- '{ 
+>  curl http://localhost:3000/api/v1/messages -d ' \
+{ 
   "mail_from": "pavan8sachi@gmail.com",    
   "mail_to": [   
      "pavan8sachi@gmail.com"   
@@ -90,9 +96,23 @@ Pre-requisites
  "text": "test text"   
  }' -H "Content-Type: application/json"  
 
+>  curl http://mail.digiconnect.co/api/v1/messages -d ' \
+{ 
+  "mail_from": "pavan8sachi@gmail.com",    
+  "mail_to": [   
+     "pavan8sachi@gmail.com"   
+ ],   
+ "subject": "test subject",  
+ "text": "test text"   
+ }' -H "Content-Type: application/json"    
 
 
-#### Production
+
+#### Production (using curl)
 
 
 deployed the API at mail.digiconnect.co in AWS cloud
+
+#### Production (using swagger)
+
+http://mail.digiconnect.co/api/v1/docs/
