@@ -8,12 +8,12 @@ describe('controllers', function() {
     jest.setTimeout(10000);
   });
 
-  describe('GET /status', function() {
+  describe('GET /api/v1/status', function() {
 
     test('should return status healthy', function(done) {
 
       request(server)
-        .get('/status')
+        .get('/api/v1/status')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
