@@ -84,7 +84,7 @@ Pre-requisites
 #### Local
 
 
-> curl http://localhost:3000/status -v  
+> curl http://localhost:3000/api/v1/status -v  
 
 >  curl http://localhost:3000/api/v1/messages -d ' \
 { 
