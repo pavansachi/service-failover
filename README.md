@@ -23,8 +23,8 @@ This is typescript enabled node js application
 
 ### Build the application
 
+> npm install  
 > npm run build
-
 
 Environment variables (.env)
 
@@ -40,12 +40,14 @@ SENDGRID_API_KEY=
 
 ## Test
 
+> npm install  
 > npm test 
 
 ## Deploy
 
 ### Run and deploy in production
 
+> npm install  
 > npm run build  
 > npm run prod   
 
