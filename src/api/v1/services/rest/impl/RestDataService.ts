@@ -36,6 +36,7 @@ export class RestDataService implements IRestService {
             this.log.error({
                 status: e.response.status,
                 statusText: e.response.statusText,
+                errors: e.response.data.errors,
                 headers: e.response.headers
             });
             return 500;

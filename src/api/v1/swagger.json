@@ -16,14 +16,7 @@
   "host": "mail.digiconnect.co",
   "basePath": "/api/v1",
   "tags": [
-    {
-      "name": "email",
-      "description": "send email"
-    },
-    {
-      "name": "provider",
-      "description": "send emails via providers"
-    }
+    
   ],
   "schemes": [
     "http"
@@ -32,8 +25,7 @@
     "/status": {
       "get": {
         "tags": [
-          "send",
-          "email"
+ 
         ],
         "summary": "check health of application",
         "operationId": "status",
@@ -52,13 +44,85 @@
           }
         }
       }
+    },
+    "/messages": {
+      "post": {
+        "tags": [
+         
+        ],
+        "summary": "check health of application",
+        "operationId": "messages",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "email defintion to send",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MailRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful operation",
+            "schema": {
+              "type": "json"
+            }
+          },
+          "500": {
+            "description": "unhealthy"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
    
   },
   "definitions": {
-
+    "MailRequest": {
+      "type": "object",
+      "required": [
+        "from",
+        "to"
+      ],
+      "properties": {
+        "mail_from": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "mail_to": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mail_cc": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mail_bcc": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
   },
   "externalDocs": {
     "description": "Find out more about Swagger",
