@@ -1,6 +1,9 @@
 # Project
 
 This is typescript enabled node js application with api versioning
+It uses 2 mail provider API's
+* Main Gun (register for account at https://signup.mailgun.com/new/signup)
+* Send Grid (register for account at https://signup.sendgrid.com)
 
 1. [ Libraries ](#Libraries)
 2. [ Swagger Documentation ](#Swagger-documentation)
@@ -38,10 +41,10 @@ Environment variables (.env)
   MAILGUN_API=https://api.mailgun.net/v3/sandboxbb9294b0d66741b2a60a57daa672677a.mailgun.org  
   TEST_SUBJECT=Test Mail  
   MAILGUN_USER=api  
-  MAILGUN_PASSWORD=  
+  MAILGUN_PASSWORD=[[api-key]] 
 
 > SENDGRID_API=https://api.sendgrid.com/v3/mail  
-SENDGRID_API_KEY=  
+SENDGRID_API_KEY=[[api-key]]  
 
 
 ## Test
