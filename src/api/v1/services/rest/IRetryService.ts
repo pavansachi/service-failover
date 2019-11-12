@@ -5,5 +5,5 @@ interface for retry service
 */
 export interface IRetryService {
 
-    retry(handler: IMailHandler, count: number): Promise<boolean>;
+    retry(handler: IMailHandler): Promise<boolean>;
 }
