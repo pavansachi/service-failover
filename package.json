@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --verbose",
     "start": "node dist/app.js",
-    "build": "tsc -p .",
+    "build": "tsc -p . && cp src/api/v1/swagger.json dist/api/v1",
     "dev": "nodemon src/app.ts",
     "prod": "node dist/app.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
