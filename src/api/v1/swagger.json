@@ -72,11 +72,24 @@
           "202": {
             "description": "successful operation",
             "schema": {
-              "type": "json"
+              "type": "object"
+            },
+            "examples": {
+              "application/json": {
+                "message": "mail has been successfully sent"
+              }
             }
           },
+          "400": {
+            "description": "Bad request"
+          },
           "500": {
-            "description": "unhealthy"
+            "description": "error operation",
+            "examples": {
+              "application/json": {
+                "message": "sending mail has failed"
+              }
+            }
           }
         }
       }

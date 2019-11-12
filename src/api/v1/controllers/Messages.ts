@@ -52,14 +52,14 @@ router.post("/messages", [
     const result: boolean = await mailSender.send(request);
 
     if (result) {
-        res.status(202).send("mail has been successfully sent");
+        res.status(202).send({message: "mail has been successfully sent"});
     }
     else {
-        res.status(500).send("mail has not been sent");
+        res.status(500).send({message: "sending mail has failed"});
     }
   } catch (e) {
     log.error("unexpected error happened", e);
-    res.status(500).send("mail has not been sent");
+    res.status(500).send({message: "sending mail has failed"});
   }
 
 });
