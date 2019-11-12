@@ -7,6 +7,9 @@ import { MockRestService } from "../services/rest/impl/MockRestService";
 import { SendGridHandler } from "../services/mail/impl/SendGridHandler";
 import dotenv from "dotenv";
 import logger from "../utils/Logger";
+const { body, validationResult } = require('express-validator');
+
+console.log(body);
 
 const router = express.Router();
 
@@ -29,38 +32,31 @@ function sendError(e: string): any {
     }
 }
 
-function validate(req: Request, res: Response, next: NextFunction) {
-
-    const fromAddress = req.body.mail_from;
-    const toAddress: string[] = req.body.mail_to || [];
-
-    if (!fromAddress) {
-        log.error("mail_from is required");
-        return res.status(400).send(sendError("mail_from is required parameter"));
-    }
-
-    if (toAddress.length === 0) {
-        log.error("mail_to is required");
-        return res.status(400).send(sendError("mail_to is required parameter"));
-    }
-
-    next();
-}
-
-router.post("/messages", validate, async ( req: Request, res: Response, next: NextFunction) => {
+router.post("/messages", [
+    body('mail_from', 'Invalid email').exists().isEmail(),
+    body('mail_to', 'Invalid email').exists().isEmail(),
+    body('mail_cc', 'Invalid email').optional().isEmail(),
+    body('mail_bcc', 'Invalid email').optional().isEmail(),
+    body('subject', 'Subject should not be empty').optional().isLength({ min: 1 }),
+    body('text', 'Text should not be empty').optional().isLength({ min: 1 })
+], async ( req: Request, res: Response) => {
   try {
-      const body = req.body;
 
-      const request: MailRequest = new MailRequest(body);
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
 
-      const result: boolean = await mailSender.send(request);
+    const body = req.body;
+    const request: MailRequest = new MailRequest(body);
+    const result: boolean = await mailSender.send(request);
 
-      if (result) {
-          res.status(202).send("mail has been successfully sent");
-      }
-      else {
+    if (result) {
+        res.status(202).send("mail has been successfully sent");
+    }
+    else {
         res.status(500).send("mail has not been sent");
-      }
+    }
   } catch (e) {
     log.error("unexpected error happened", e);
     res.status(500).send("mail has not been sent");

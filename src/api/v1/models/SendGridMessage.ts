@@ -35,8 +35,9 @@ export class SendGridMessage {
 
         if (request.subject) {
             subject = request.subject;
-            this.data.subject = subject;
         }
+
+        this.data.subject = subject;
 
         if (request.mail_from) {
             const from = { "email": request.mail_from }
