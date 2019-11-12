@@ -1,6 +1,6 @@
 # Project
 
-This is typescript enabled node js application with api versioning
+This is typescript enabled node js application with api versioning.  
 It uses 2 mail provider API's
 * Main Gun (register for account at https://signup.mailgun.com/new/signup)
 * Send Grid (register for account at https://signup.sendgrid.com)
@@ -20,6 +20,7 @@ It uses 2 mail provider API's
 * Express, for building API
 * Typescript, for transpiling javascript and can use ES6 features
 * Jest, for testing
+* axios, for restful requests
 * Mail Gun, email provider API
 * Send Gun, email provider API
 
